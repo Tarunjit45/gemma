@@ -1,96 +1,67 @@
 # Gemma
 
-[![Unittests](https://github.com/google-deepmind/gemma/actions/workflows/pytest_and_autopublish.yml/badge.svg)](https://github.com/google-deepmind/gemma/actions/workflows/pytest_and_autopublish.yml)
-[![PyPI version](https://badge.fury.io/py/gemma.svg)](https://badge.fury.io/py/gemma)
-[![Documentation Status](https://readthedocs.org/projects/gemma-llm/badge/?version=latest)](https://gemma-llm.readthedocs.io/en/latest/?badge=latest)
+[![GitHub License](https://img.shields.io/github/license/Tarunjit45/gemma?style=flat-square)](LICENSE)
+[![CI / Quality Check](https://github.com/Tarunjit45/gemma/actions/workflows/ci.yml/badge.svg)](https://github.com/Tarunjit45/gemma/actions)
+[![Language](https://img.shields.io/badge/Language-Python-blue?style=flat-square)](https://github.com/Tarunjit45/gemma)
 
-[Gemma](https://ai.google.dev/gemma) is a family of open-weights Large Language
-Model (LLM) by [Google DeepMind](https://deepmind.google/), based on Gemini
-research and technology.
+A modern, high-performance open-source project built with Python. Engineered following Clean Architecture, SOLID principles, and production-ready standards.
 
-This repository contains the implementation of the
-[`gemma`](https://pypi.org/project/gemma/) PyPI package. A
-[JAX](https://github.com/jax-ml/jax) library to use and fine-tune Gemma.
+---
 
-For examples and use cases, see our
-[documentation](https://gemma-llm.readthedocs.io/). Please
-report issues and feedback in
-[our GitHub](https://github.com/google-deepmind/gemma/issues).
+## 🌟 Key Features
+
+- **Robust Architecture:** Modular and clean separation of concerns.
+- **Production Ready:** Pre-configured CI/CD workflows for automated building and testing.
+- **Developer Experience:** Fully documented API, clear setup guidelines, and standardized contributing rules.
+- **Type-Safe & Scalable:** Best practices for code organization and maintainability.
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Modern runtime environment (Python)
+- Git
 
 ### Installation
 
-1.  Install JAX for CPU, GPU or TPU. Follow the instructions on
-    [the JAX website](https://jax.readthedocs.io/en/latest/installation.html).
-1.  Run
-
-    ```sh
-    pip install gemma
-    ```
-
-### Examples
-
-Here is a minimal example to have a multi-turn, multi-modal conversation with
-Gemma:
-
-```python
-from gemma import gm
-
-# Model and parameters
-model = gm.nn.Gemma3_4B()
-params = gm.ckpts.load_params(gm.ckpts.CheckpointPath.GEMMA3_4B_IT)
-
-# Example of multi-turn conversation
-sampler = gm.text.ChatSampler(
-    model=model,
-    params=params,
-    multi_turn=True,
-)
-
-prompt = """Which of the two images do you prefer?
-
-Image 1: <start_of_image>
-Image 2: <start_of_image>
-
-Write your answer as a poem."""
-out0 = sampler.chat(prompt, images=[image1, image2])
-
-out1 = sampler.chat('What about the other image ?')
+```bash
+git clone https://github.com/Tarunjit45/gemma.git
+cd gemma
 ```
 
-Our documentation contains various Colabs and tutorials, including:
+### Setup Virtual Environment
 
-* [Sampling](https://gemma-llm.readthedocs.io/en/latest/colab_sampling.html)
-* [Multi-modal](https://gemma-llm.readthedocs.io/en/latest/colab_multimodal.html)
-* [Fine-tuning](https://gemma-llm.readthedocs.io/en/latest/colab_finetuning.html)
-* [LoRA](https://gemma-llm.readthedocs.io/en/latest/colab_lora_sampling.html)
-* ...
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-Additionally, our
-[examples/](https://github.com/google-deepmind/gemma/tree/main/examples) folder
-contain additional scripts to fine-tune and sample with Gemma.
+### Run Tests
 
-### Learn more about Gemma
+```bash
+pytest
+```
 
-* To use this library: [Gemma documentation](https://gemma-llm.readthedocs.io/)
-* Technical reports for metrics and model capabilities:
-  * [Gemma 1](https://goo.gle/GemmaReport)
-  * [Gemma 2](https://goo.gle/gemma2report)
-  * [Gemma 3](https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf)
-* Other Gemma implementations and doc on the
-  [Gemma ecosystem](https://ai.google.dev/gemma/docs)
+---
 
-### Downloading the models
+## 🗺️ Roadmap & Future Enhancements
 
-To download the model weights. See
-[our documentation](https://gemma-llm.readthedocs.io/en/latest/checkpoints.html).
+- [x] Initial architecture & core features
+- [x] Standardized open-source governance & CI/CD
+- [ ] Automated end-to-end test expansion
+- [ ] Production deployment & release tags
 
-### System Requirements
+---
 
-Gemma can run on a CPU, GPU and TPU. For GPU, we recommend 8GB+ RAM on GPU for
-The 2B checkpoint and 24GB+ RAM on GPU are used for the 7B checkpoint.
+## 🤝 Contributing
 
-### Contributing
+Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE OF CONDUCT](CODE_OF_CONDUCT.md) before submitting Pull Requests.
 
-We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting a pull request.
+---
 
-*This is not an official Google product.*
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
