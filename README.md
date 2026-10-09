@@ -1,71 +1,103 @@
-# 🚀 gemma
+> [!NOTE]
+> **Fork Notice:** This repository is a fork of the official [google-deepmind/gemma](https://github.com/google-deepmind/gemma) repository maintained by [@Tarunjit45](https://github.com/Tarunjit45).
 
-![Language](https://img.shields.io/badge/Language-Jupyter%20Notebook-blue?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Production-Active-success?style=for-the-badge)
+# Gemma
 
-## 📌 Overview
+[![Unittests](https://github.com/google-deepmind/gemma/actions/workflows/pytest_and_autopublish.yml/badge.svg)](https://github.com/google-deepmind/gemma/actions/workflows/pytest_and_autopublish.yml)
+[![PyPI version](https://badge.fury.io/py/gemma.svg)](https://badge.fury.io/py/gemma)
+[![Documentation Status](https://readthedocs.org/projects/gemma-llm/badge/?version=latest)](https://gemma-llm.readthedocs.io/en/latest/?badge=latest)
 
-Gemma open-weight LLM library, from Google DeepMind
+[Gemma](https://ai.google.dev/gemma) is a family of open-weights Large Language
+Model (LLM) by [Google DeepMind](https://deepmind.google/), based on Gemini
+research and technology.
 
-## ✨ Key Features & Architecture
+This repository contains the implementation of the
+[`gemma`](https://pypi.org/project/gemma/) PyPI package. A
+[JAX](https://github.com/jax-ml/jax) library to use and fine-tune Gemma.
 
-- **High-Performance Codebase:** Built using `Jupyter Notebook` and modern engineering principles.
-- **Modular & Scalable Design:** Structured directory tree for seamless development and deployment.
+For examples and use cases, see our
+[documentation](https://gemma-llm.readthedocs.io/). Please
+report issues and feedback in
+[our GitHub](https://github.com/google-deepmind/gemma/issues).
 
-## 🛠️ Tech Stack & Dependencies
+### Installation
 
-- **Core Language:** `Jupyter Notebook`
-- **Libraries & Tools:** Jupyter Notebook
-- **Deployment Infrastructure:** Vercel Edge / Cloud Services
+1.  Install JAX for CPU, GPU or TPU. Follow the instructions on
+    [the JAX website](https://jax.readthedocs.io/en/latest/installation.html).
+1.  Run
 
-## 📁 Architecture & File Layout
+    ```sh
+    pip install gemma
+    ```
 
-```text
-gemma/
-├── .github
-├── .github/ISSUE_TEMPLATE
-├── .github/ISSUE_TEMPLATE/bug_report.md
-├── .github/ISSUE_TEMPLATE/feature_request.md
-├── .github/PULL_REQUEST_TEMPLATE.md
-├── .github/workflows
-├── .github/workflows/ci.yml
-├── .github/workflows/pytest_and_autopublish.yml
-├── .gitignore
-├── .pylintrc
-├── .readthedocs.yaml
-├── .vscode
-├── .vscode/extensions.json
-├── .vscode/settings.json
-├── CHANGELOG.md
-└── ... [additional codebase files]
+### Examples
+
+Here is a minimal example to have a multi-turn, multi-modal conversation with
+Gemma:
+
+```python
+from gemma import gm
+
+# Model and parameters (Gemma 4)
+model = gm.nn.Gemma4_E4B()
+params = gm.ckpts.load_params(gm.ckpts.CheckpointPath.GEMMA4_E4B_IT)
+
+# Example of multi-turn conversation
+sampler = gm.text.ChatSampler(
+    model=model,
+    params=params,
+    multi_turn=True,
+)
+
+prompt = """Which of the 2 images do you prefer ?
+
+Image 1: <|image|>
+Image 2: <|image|>
+
+Write your answer as a poem."""
+out0 = sampler.chat(prompt, images=[image1, image2])
+
+out1 = sampler.chat('What about the other image ?')
 ```
 
-## 🚀 Quickstart & Installation
+The same `ChatSampler` API works with all Gemma versions (2, 3, 3n, 4).
 
-### Prerequisites
-- Python 3.9+
-- pip package manager
+Our documentation contains various Colabs and tutorials, including:
 
-### Setup Instructions
+* [Sampling](https://gemma-llm.readthedocs.io/en/latest/colab_sampling.html)
+* [Multi-modal](https://gemma-llm.readthedocs.io/en/latest/colab_multimodal.html)
+* [Fine-tuning](https://gemma-llm.readthedocs.io/en/latest/colab_finetuning.html)
+* [LoRA](https://gemma-llm.readthedocs.io/en/latest/colab_lora_sampling.html)
+* ...
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Tarunjit45/gemma.git
-   cd gemma
-   ```
+Additionally, our
+[examples/](https://github.com/google-deepmind/gemma/tree/main/examples) folder
+contain additional scripts to fine-tune and sample with Gemma.
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Learn more about Gemma
 
-3. **Execute application:**
-   ```bash
-   python main.py
-   ```
+* To use this library: [Gemma documentation](https://gemma-llm.readthedocs.io/)
+* Technical reports for metrics and model capabilities:
+  * [Gemma 1](https://goo.gle/GemmaReport)
+  * [Gemma 2](https://goo.gle/gemma2report)
+  * [Gemma 3](https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf)
+  * [Gemma 4](https://ai.google.dev/gemma/docs/core/model_card_4)
+* Other Gemma implementations and doc on the
+  [Gemma ecosystem](https://ai.google.dev/gemma/docs)
 
-## 📜 Author & License
+### Downloading the models
 
-Architected & Developed by **[Tarunjit Biswas](https://github.com/Tarunjit45)**.  
-Distributed under the **MIT License**.
+To download the model weights. See
+[our documentation](https://gemma-llm.readthedocs.io/en/latest/checkpoints.html).
+
+### System Requirements
+
+Gemma can run on a CPU, GPU and TPU. For GPU, we recommend 8GB+ RAM on GPU for
+The 2B checkpoint and 24GB+ RAM on GPU are used for the 7B checkpoint.
+
+### Contributing
+
+We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting a pull request.
+
+*This is not an official Google product.*
+
